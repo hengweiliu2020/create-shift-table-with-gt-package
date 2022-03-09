@@ -2,7 +2,6 @@ library(haven)
 library(dplyr)
 library(tidyr)
 library(gt)
-library(tidyverse)
 
 
 the_date <- as.character(Sys.Date())
@@ -68,7 +67,7 @@ comb$ATOXGRN <- as.numeric(unlist(comb$X2))
 m_count0 <- merge(count0, comb, by=c("TRT01A", "PARAM", "BTOXGRN", "ATOXGRN"), all=TRUE)
 m_count0$denom <- ifelse(m_count0$TRT01A=='grp1', bign[1], bign[2])
 m_count0$value <- ifelse(is.na(m_count0$unique_subj),"0", paste(m_count0$unique_subj, "(", format(round(100*m_count0$unique_subj/m_count0$denom, 1), nsmall = 1), ")"))
-print(m_count0)
+
 
 # do the transpose 
 count1 <- m_count0[(m_count0$TRT01A=="grp1"),]
@@ -93,7 +92,6 @@ df_merge$prefix <- 'Grade'
 df_merge$BTOXGRC <- paste(df_merge$prefix, df_merge$BTOXGRN)
 df <- df_merge[c("PARAM","BTOXGRC","grade0", "grade1", "grade2", "grade3", "grade4","grad0", "grad1", "grad2", "grad3", "grad4"  )]
 
-print(df)
 
 
 df %>% 
